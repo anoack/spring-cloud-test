@@ -1,8 +1,11 @@
 ---
-#eureka:
-#  client:
-#    service-url:
-#      defaultZone: http://localhost:8010/eureka/
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8010/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
 words: boat,book,vote,seat,backpack,partition,groundhog
 
 
