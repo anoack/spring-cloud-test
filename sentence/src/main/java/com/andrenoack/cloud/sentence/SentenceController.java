@@ -3,6 +3,7 @@ package com.andrenoack.cloud.sentence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,7 @@ import java.util.List;
 public class SentenceController {
 
 	@Autowired
-	DiscoveryClient discoveryClient;
+	LoadBalancerClient client;
 
 	@RequestMapping("/")
 	public @ResponseBody String getSentence() {
@@ -31,13 +32,13 @@ public class SentenceController {
 	}
 
 	public String getWord(String service) {
-		List<ServiceInstance> list = discoveryClient.getInstances(service);
-		if (list != null && list.size() > 0) {
-			URI uri = list.get(0).getUri();
+		ServiceInstance serviceInstance = client.choose(service);
+		if (serviceInstance != null) {
+			URI uri = serviceInstance.getUri();
 			if (uri != null) {
 				return (new RestTemplate()).getForObject(uri, String.class);
 			}
 		}
-		return "<" + service + " not found>";
+		return "(" + service + " not found)";
 	}
 }
