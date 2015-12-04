@@ -1,0 +1,8 @@
+---
+spring:
+  application:
+    name: noun
+  cloud:
+    config:
+      uri: http://localhost:8001
+      profile: noun
