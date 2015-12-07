@@ -30,8 +30,8 @@ public class SentenceServiceImpl implements SentenceService {
 	public String buildSentence() {
 		return
 				subjectDao.getWord() + " "
-						+ adjectiveDao.getWord() + " "
 						+ verbDao.getWord() + " "
+						+ adjectiveDao.getWord() + " "
 						+ nounDao.getWord() + ".";
 	}
 }
