@@ -1,0 +1,16 @@
+package com.andrenoack.cloud.words;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+
+@SpringBootApplication
+@EnableDiscoveryClient
+@EnableAutoConfiguration
+public class WordsApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(WordsApplication.class, args);
+    }
+}
