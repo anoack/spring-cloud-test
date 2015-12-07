@@ -1,16 +1,20 @@
-package com.andrenoack.cloud.sentence.dao;
+package com.andrenoack.cloud.sentence.feign;
 
 import com.andrenoack.cloud.sentence.domain.Word;
-import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Created by andre.noack on 07.12.15.
  */
-@FeignClient(WordDao.NOUN)
-public interface NounClient {
+public interface WordClient {
+
+	static final String SUBJECT = "subject";
+	static final String VERB = "verb";
+	static final String ADJECTIVE = "adjective";
+	static final String NOUN = "noun";
 
 	@RequestMapping(method = RequestMethod.GET, value = "/")
-	Word getWord();
+	public Word getWord();
+
 }

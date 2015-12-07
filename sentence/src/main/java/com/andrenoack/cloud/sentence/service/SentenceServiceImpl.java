@@ -1,6 +1,9 @@
 package com.andrenoack.cloud.sentence.service;
 
-import com.andrenoack.cloud.sentence.dao.*;
+import com.andrenoack.cloud.sentence.feign.AdjectiveClient;
+import com.andrenoack.cloud.sentence.feign.NounClient;
+import com.andrenoack.cloud.sentence.feign.SubjectClient;
+import com.andrenoack.cloud.sentence.feign.VerbClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +14,13 @@ import org.springframework.stereotype.Service;
 public class SentenceServiceImpl implements SentenceService {
 
 	@Autowired
-	SubjectDao subjectDao;
+	SubjectClient subjectClient;
 
 	@Autowired
-	AdjectiveDao adjectiveDao;
+	AdjectiveClient adjectiveClient;
 
 	@Autowired
-	VerbDao verbDao;
+	VerbClient verbClient;
 
 	@Autowired
 	NounClient nounClient;
@@ -26,9 +29,9 @@ public class SentenceServiceImpl implements SentenceService {
 	@Override
 	public String buildSentence() {
 		return
-				subjectDao.getWord() + " "
-						+ verbDao.getWord() + " "
-						+ adjectiveDao.getWord() + " "
+				subjectClient.getWord() + " "
+						+ verbClient.getWord() + " "
+						+ adjectiveClient.getWord() + " "
 						+ nounClient.getWord() + ".";
 	}
 }
