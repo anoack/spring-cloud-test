@@ -13,25 +13,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class SentenceServiceImpl implements SentenceService {
 
-	@Autowired
-	SubjectClient subjectClient;
-
-	@Autowired
-	AdjectiveClient adjectiveClient;
-
-	@Autowired
-	VerbClient verbClient;
-
-	@Autowired
-	NounClient nounClient;
+	@Autowired WordService wordService;
 
 
 	@Override
 	public String buildSentence() {
 		return
-				subjectClient.getWord() + " "
-						+ verbClient.getWord() + " "
-						+ adjectiveClient.getWord() + " "
-						+ nounClient.getWord() + ".";
+				wordService.getSubject() + " "
+						+ wordService.getVerb() + " "
+						+ wordService.getAdjective() + " "
+						+ wordService.getNoun() + ".";
 	}
 }
