@@ -1,5 +1,6 @@
 package com.andrenoack.cloud.sentence.controller;
 
+import com.andrenoack.cloud.sentence.service.SentenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -19,26 +20,18 @@ import java.util.List;
 public class SentenceController {
 
 	@Autowired
-	LoadBalancerClient client;
+	SentenceService sentenceService;
 
 	@RequestMapping("/")
 	public @ResponseBody String getSentence() {
 		return
-				getWord("subject") + " "
-						+ getWord("verb") + " "
-						+ getWord("adjective") + " "
-						+ getWord("noun") + ".";
-
+				"<h3>Some sentences</h3><br />"
+				+ sentenceService.buildSentence() + "<br />"
+						+ sentenceService.buildSentence() + "<br />"
+						+ sentenceService.buildSentence() + "<br />"
+						+ sentenceService.buildSentence() + "<br />"
+						+ sentenceService.buildSentence() + "<br />";
 	}
 
-	public String getWord(String service) {
-		ServiceInstance serviceInstance = client.choose(service);
-		if (serviceInstance != null) {
-			URI uri = serviceInstance.getUri();
-			if (uri != null) {
-				return (new RestTemplate()).getForObject(uri, String.class);
-			}
-		}
-		return "(" + service + " not found)";
-	}
+
 }
